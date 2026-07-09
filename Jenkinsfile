@@ -14,14 +14,13 @@ pipeline {
             }
         }
 
-        stage('Deploy') {
-            steps {
-                sh '''
-                docker stop saidali-web || true
-                docker rm saidali-web || true
-                docker run -d --name saidali-web -p 80:80 saidali-web
-                '''
-            }
-        }
+       stage('Deploy') {
+          steps {
+             sh 'docker stop saidali-web || true'
+             sh 'docker rm saidali-web || true'
+             sh 'docker build -t saidali-web .'
+             sh 'docker run -d --name saidali-web -p 80:80 saidali-web'
+    }
+}
     }
 }
